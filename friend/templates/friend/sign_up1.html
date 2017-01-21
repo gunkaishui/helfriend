@@ -1,0 +1,15 @@
+{% extends 'friend/sign_in.html' %}
+{% block content %}
+ <form class="form-signin" action='{% url "friend:login" %}' method='post'>
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        {{ form.username }}
+        {{ form.password1 }}
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="submit"  value='sign in' />
+        <a href="{% url 'friend:signup' %}" class="btn btn-lg btn-primary btn-block" title='sign_up' >sign up</a>
+{% endblock %}
