@@ -3,7 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 
-#from friend.forms import *
+from django.contrib.auth import login,logout,authenticate
+from friend.forms import *
 from django.http import HttpResponse ,HttpResponseRedirect
 
 def sign_in(request):
@@ -29,5 +30,5 @@ def log_in(request):
        else:
              msg = 'the format is not correct!'
              return render(request,'blog/index.html',{'form':form,'msg':msg})
-def login(request):
+def test(request):
     return HttpResponse('hello world')
