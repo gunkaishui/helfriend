@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
+from django.contrib.auth import login,logout,authenticate
 from django.core.urlresolvers import reverse
 from django.shortcuts import render,redirect,get_object_or_404
 
@@ -29,7 +30,7 @@ def log_in(request):
                return HttpResponse('hello world')
             else:
                msg = 'username or password is not true!'
-               return render(request,'blog/index.html',{'form':form,'msg':msg})
+               return render(request,'friend/sign_in.html',{'form':form,'msg':msg})
        else:
              msg = 'the format is not correct!'
              return render(request,'friend/sign_in.html',{'form':form,'msg':msg})

@@ -39,6 +39,7 @@
       <form class="form-signin" action='{% url "friend:login" %}' method='post'>
           {% csrf_token %}
         <h2 class="form-signin-heading">Please sign in</h2>
+        {{ msg }}
         {{ form.uid }}
         {{ form.pwd }}
         <div class="checkbox">

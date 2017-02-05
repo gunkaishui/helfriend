@@ -8,4 +8,20 @@ class FriUser(AbstractUser):
       def __unicode__(self):
            return self.username
 
+class Affair(models.Model):
+      author = models.ForeignKey('FriUser')
+      content = models.TextField()
+      pub_date = models.DateTimeField(auto_now_add=True,editable=True)
+      like_count = models.IntegerField()
+      
+      def __unicode__(self):
+           return self.content
+
+class Comment(models.Model):
+      affair = models.ForeignKey('Affair')
+      content = models.TextField()
+      pub_date = models.DateTimeField(auto_now_add=True,editable=True)
+      author = models.ForeignKey('FriUser')
+
+      
 
