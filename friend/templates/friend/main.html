@@ -47,7 +47,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">发表</a></li>
+            <li class="active"><a href="{% url 'friend:subaffair' %}">发表</a></li>
             <li><a href="#about">加好友</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -68,18 +68,18 @@
     </nav>
 
     <div class="container">
-
+    {% block page %}
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
          {% for affair in affair_set %}
            <h1>{{ affair.author }}</h1>
-           <p>{{ affair.content }}</p>
+           <p>{{ affair.content | safe }}</p>
             <p> {{affair.pub_date }}</p>
            <hr>
 
          {% endfor %}
       </div>
-
+     {% endblock %}
     </div> <!-- /container -->
 
 

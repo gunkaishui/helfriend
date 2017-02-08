@@ -1,0 +1,12 @@
+{% extends 'friend/main.html' %}
+{% load staticfiles %}
+{% block page %}
+
+  <script src="{% static 'friend/js/tinymce/tinymce.min.js' %}"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+  <form method='post' action="{% url 'friend:subaffair' %}">
+     {% csrf_token %}
+     <textarea name='affair_sub'></textarea>
+     <input type='submit',value='Save' />
+  </form>
+{% endblock %}

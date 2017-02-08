@@ -34,7 +34,7 @@ def log_in(request):
              msg = 'the format is not correct!'
              return render(request,'friend/sign_in.html',{'form':form,'msg':msg})
 def test(request):
-    return render(request,'friend/main.html')
+    return render(request,'friend/fabiao.html')
 
 
 
@@ -77,3 +77,13 @@ def after_login(request):
     affair_set = affair_set.order_by('-pub_date')
     dictionary = {'affair_set':affair_set}
     return render(request,'friend/main.html',dictionary)
+
+def sub_affair(request):
+    if request.method == 'POST':
+        newaffair = Affair()
+        newaffair.author = request.user
+        newaffair.content = request.POST['affair_sub']
+        newaffair.save()
+        return redirect(reverse('friend:afterlogin'))
+    else:
+        return render(request,'friend/fabiao.html')
