@@ -3,3 +3,4 @@ from friend.models import *
 # Register your models here.
 
 admin.site.register(FriUser)
+admin.site.register(Affair)

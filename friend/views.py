@@ -26,8 +26,7 @@ def log_in(request):
             user = authenticate(username=username,password=password)
             if user  and user.is_active:
                login(request,user)
-#               return redirect(reverse('blog:afterlogin'))
-               return HttpResponse('hello world')
+               return redirect(reverse('friend:afterlogin'))
             else:
                msg = 'username or password is not true!'
                return render(request,'friend/sign_in.html',{'form':form,'msg':msg})
@@ -35,7 +34,7 @@ def log_in(request):
              msg = 'the format is not correct!'
              return render(request,'friend/sign_in.html',{'form':form,'msg':msg})
 def test(request):
-    return HttpResponse('hello world')
+    return render(request,'friend/main.html')
 
 
 
@@ -68,3 +67,13 @@ def register(request):
              msg = 'format is not correct!'
              return render(request,'friend/sign_up.html',{'form':form,'msg':msg    })
 
+def after_login(request):
+    this_user = request.user
+    fri_id_char = this_user.friends_id
+    fri_id_list = fri_id_char.split(',')
+    affair_set = this_user.affair_set.order_by('-pub_date')
+    for fri_id in fri_id_list:
+        affair_set = affair_set | FriUser.objects.get(id=int(fri_id)).affair_set.order_by('-pub_date')
+    affair_set = affair_set.order_by('-pub_date')
+    dictionary = {'affair_set':affair_set}
+    return render(request,'friend/main.html',dictionary)

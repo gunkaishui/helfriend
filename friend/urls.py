@@ -6,6 +6,7 @@ urlpatterns = [
      url(r'^$',log_in,name='login'),
      url(r'^test$',test,name='test'),
      url(r'^signup$',register,name='signup'),
+     url(r'index$',after_login,name='afterlogin'),
 
 
 ]
