@@ -1,0 +1,16 @@
+{% extends 'friend/main.html' %}
+
+{% block page %}
+<form  method='get' action="{% url 'friend:friend_add' %}">
+<h2>以下用户请求加您为好友</h2>
+  {% for user in userlist %}
+    <p>{{user.username}}</p>
+    <input type="checkbox" name="username" value="{{user.id}}" checked="checked" />
+    <br />
+    <br /><br />
+    <input type="submit" value="Submit" />
+  {% endfor %}
+<a href="{ url 'friend:bujieshou' %}" >全不添加</a>
+</form> 
+
+{% endblock %}

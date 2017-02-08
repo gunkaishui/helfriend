@@ -1,0 +1,11 @@
+{% extends 'friend/main.html' %}
+
+{% block page %}
+  <h3>{{msg}}</h3>
+<form method='post' action="{% url 'friend:add_friend' %}">
+   {% csrf_token %}
+   <input type='text' name='username' />
+   <input type='submit' value='添加' />
+   <a href="{% url 'friend:quxiao' %}">取消</a>
+
+{% endblock %}
