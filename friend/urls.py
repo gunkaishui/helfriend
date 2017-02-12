@@ -9,10 +9,14 @@ urlpatterns = [
      url(r'^index$',after_login,name='afterlogin'),
      url(r'^subaff$',sub_affair,name='subaffair'),
      url(r'^addfri$',add_friend,name='add_friend'),
-     url(r'^friend$',friend_add,name='friend_add'),
+     url(r'^friadd$',friend_add,name='friend_add'),
+     url(r'^logout$',log_out,name='logout'),
 
      url(r'^quxiao$',quxiao,name='quxiao'),
      url(r'^testtwo$',testtwo,name='testtwo'),
+     url(r'^seting$',seting,name='seting'),
+     url(r'^alter$',seting_alter,name='seting_alter'),
+     url(r'^history/(?P<user_id>[0-9]+)$',history,name='history'),
 
 
 ]

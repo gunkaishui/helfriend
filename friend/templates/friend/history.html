@@ -1,0 +1,13 @@
+{% extends 'friend/main.html' %}
+
+{% block page %}
+<div>{{ user.username }}的发表历史:</div>
+   <hr>
+   {% for affair in affairset %}
+    <p>{{ affair.content | safe }}</p>
+            <p> {{affair.pub_date }}</p>
+     <hr>
+   {% endfor %}
+  
+
+{% endblock %}

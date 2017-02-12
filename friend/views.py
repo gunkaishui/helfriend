@@ -35,7 +35,7 @@ def log_in(request):
              msg = 'the format is not correct!'
              return render(request,'friend/sign_in.html',{'form':form,'msg':msg})
 def test(request):
-    return render(request,'friend/friend_add.html')
+    return render(request,'friend/test.html')
 
 
 
@@ -76,17 +76,35 @@ def after_login(request):
         except:
                pass
         if add_id_list is None:
-            affair_set = request.user.affair_set.order_by('-pub_date')
+            affair_set = request.user.affair_set.all()
             fri_id_list = str_to_list(request.user.friends_id)
+            global userlist
+            userlist = []
             try:
                 fri_id_list.remove('')
             except:
                 pass
             if fri_id_list is not None:
+                
                 for fri_id in fri_id_list:
-                    affair_set = affair_set | FriUser.objects.get(id=int(fri_id)).affair_set.order_by('-pub_date')
+                    user = FriUser.objects.get(id=int(fri_id))
+                    userlist.append(user)
+                    affair_set = affair_set | user.affair_set.all()  
+                    fri_id_list_again = str_to_list(user.friends_id)
+                    
+                    try:
+                       fri_id_list_again.remove('')
+                    except:
+                         pass
+                    if fri_id_list_again is not None:
+                        for fri_id_again in fri_id_list_again:
+                            user_again = FriUser.objects.get(id=int(fri_id_again                            ))
+                            affair_set = affair_set | user_again.affair_set.all(                            )
+                             
+
+
             affair_set = affair_set.order_by('-pub_date')
-            dictionary = {'affair_set':affair_set}
+            dictionary = {'affair_set':affair_set,'userlist':userlist}
             return render(request,'friend/main.html',dictionary)
         else:
                userlist = []
@@ -104,11 +122,11 @@ def sub_affair(request):
         newaffair.save()
         return redirect(reverse('friend:afterlogin'))
     else:
-        return render(request,'friend/fabiao.html')
+        return render(request,'friend/fabiao.html',{'userlist':userlist})
 
 def add_friend(request):
         if request.method == 'GET':
-             return render(request,'friend/add_friend.html')
+             return render(request,'friend/add_friend.html',{'userlist':userlist})
         else:
             try: 
                   this_user = request.user
@@ -128,10 +146,10 @@ def add_friend(request):
                        return redirect(reverse('friend:afterlogin'))
                   else:
                        msg = '该用户已经是您的好友'
-                       return render(request,'friend/add_friend.html',{'msg':msg})
+                       return render(request,'friend/add_friend.html',{'userlist':userlist,'msg':msg})
             except:
                   msg = '该用户不存在'
-                  return render(request,'friend/add_friend.html',{'msg':msg})
+                  return render(request,'friend/add_friend.html',{'msg':msg, 'userlist':userlist})
 
                         
 def quxiao(request):
@@ -162,9 +180,33 @@ def  friend_add(request):
              user = FriUser.objects.get(id=int(i))
              idlist = str_to_list(user.friends_id)
              if idlist is None:
-                  user.friends_id = i
+                  user.friends_id = request.user.id
              else:
                   idlist.append(str(request.user.id))
                   user.friends_id = ','.join(set(idlist))
              user.save()           
       return redirect(reverse('friend:afterlogin'))
+
+def log_out(request):
+       logout(request)
+       return redirect(reverse('friend:login'))
+
+def seting(request):
+       if request.method == 'GET':
+           return render(request,'friend/seting.html',{'userlist':userlist})
+       else:
+            pass
+
+
+def seting_alter(request):
+       if request.method == 'GET':
+           return render(request,'friend/seting_alter.html',{'user':request.user             ,'userlist':userlist  } )
+       else:
+            return HttpResponse('hello')
+
+
+def history(request,user_id):
+      user = FriUser.objects.get(id=user_id)
+      affairset = user.affair_set.order_by('pub_date')
+      form = {'user':user,'affairset':affairset,'userlist':userlist}
+      return render(request,'friend/history.html',form)

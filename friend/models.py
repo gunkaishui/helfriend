@@ -7,6 +7,9 @@ class FriUser(AbstractUser):
       signature = models.CharField(default='this guy is lazy to leave something'                  ,max_length=256)
       friends_id = models.CharField(null=True,max_length=256)
       add_fri_id = models.CharField(null=True,blank=True,max_length=256)
+      email_address = models.CharField(max_length=256)
+      phone = models.CharField(null=True,blank=True,max_length=256)
+
       def __unicode__(self):
            return self.username
 
@@ -25,5 +28,7 @@ class Comment(models.Model):
       pub_date = models.DateTimeField(auto_now_add=True,editable=True)
       author = models.ForeignKey('FriUser')
 
-      
-
+     
+class Upload(models.Model):
+      user = models.OneToOneField(FriUser) 
+      image  = models.ImageField( upload_to='friend/media/',default='friend/media/no_img.jpg')

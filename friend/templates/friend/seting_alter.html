@@ -1,0 +1,48 @@
+{% extends 'friend/seting.html' %}
+
+
+
+{% block seting %}
+
+<form action="/index" method="POST" class="zm-settings-account" id="js-settings-account-form" autocomplete="off">
+{% csrf_token %}
+<div class="settings-item clearfix">
+<label for="url_token" class="settings-item-title with-input">用户名</label>
+<div class="settings-item-content">
+
+<input autocomplete="off" class="zg-form-text-input" name="url_token" id="url_token" value={{user.username}} required>
+</div>
+</div>
+
+<div class="settings-item clearfix">
+<label for="url_token" class="settings-item-title with-input">邮箱</label>
+<div class="settings-item-content"> 
+
+<input autocomplete="off" class="zg-form-text-input" name="url_token" id="url_token" value={{user.email_address}} required>
+</div>
+</div>
+
+<div class="settings-item clearfix">
+<label for="url_token" class="settings-item-title with-input">手机</label>
+<div class="settings-item-content"> 
+
+<input autocomplete="off" class="zg-form-text-input" name="url_token" id="url_token" value={{user.phone}} required>
+</div>
+</div>
+
+<div class="settings-item clearfix">
+<label for="url_token" class="settings-item-title with-input">个性签名</label>
+<div class="settings-item-content"> 
+
+<input   name="url_token" type='text'  value={{user.signature}} >
+</div>
+</div>
+
+
+<div class="settings-save">
+<button type="submit" class="zg-btn-blue">保存</button>
+</div>
+
+</form>
+
+{% endblock %}

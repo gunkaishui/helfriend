@@ -1,0 +1,88 @@
+{% extends 'friend/main.html' %}
+{% load staticfiles %}
+{% block container %}
+<html lang="zh-CN">
+<meta charset='utf-8' />
+
+<link rel="stylesheet" href="{% static 'friend/css/z.755d7b1e.css' %}">
+
+<link rel="stylesheet" href="{% static 'friend/css/main.0eaf7d34.css' %}">
+
+
+<div class="zg-wrap zu-main clearfix no-sidebar"  role="main">
+<div class="zu-main-content">
+<div class="zu-main-content-inner">
+
+
+
+
+<ul class="tab-navs">
+<li class="tab-nav active">
+<a href="/settings/profile">基本资料</a>
+</li>
+<li class="tab-nav">
+<a href="/settings/account">帐号和密码</a>
+</li>
+<li class="tab-nav">
+<a href="/settings/notification">消息和邮件</a>
+</li>
+<li class="tab-nav">
+<a href="/settings/filter">屏蔽</a>
+</li>
+
+</ul>
+
+{% block seting %}
+
+<div class="settings-section">
+<div class="settings-item clearfix">
+<label for="fullname" class="settings-item-title">姓名</label>
+<div class="settings-item-content rename-section" id="rename-section">
+<span class="name">{{user.username}}</span>
+</div>
+</div>
+
+<div class="settings-section">
+<div class="settings-item clearfix">
+<label for="fullname" class="settings-item-title">邮箱</label>
+<div class="settings-item-content rename-section" id="rename-section">
+<span class="name">{{user.email_adress}}</span>
+</div>
+</div>
+
+<div class="settings-section">
+<div class="settings-item clearfix">
+<label for="fullname" class="settings-item-title">手机</label>
+<div class="settings-item-content rename-section" id="rename-section">
+<span class="name">{{user.phone}}</span>
+</div>
+</div>
+
+<div class="settings-section">
+<div class="settings-item clearfix">
+<label for="fullname" class="settings-item-title">个性签名</label>
+<div class="settings-item-content rename-section" id="rename-section">
+<span class="name">{{user.signature}}</span>
+</div>
+</div>
+
+<div class="settings-save">
+<a class="zg-btn-blue" href="{% url 'friend:seting_alter' %}">修改</a>
+</div>
+
+{% endblock %}
+
+
+<div class="settings-item clearfix">
+<label for="url_token" class="settings-item-title with-input">个性域名</label>
+<div class="settings-item-content">
+
+<input autocomplete="off" class="zg-form-text-input" name="url_token" id="url_token" value="lin-fa-jian" required>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+{% endblock %}
